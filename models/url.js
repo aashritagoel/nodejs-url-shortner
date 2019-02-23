@@ -8,19 +8,20 @@ class UrlRepository {
     const sql = `
     CREATE TABLE IF NOT EXISTS urls (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER,
       original_url TEXT,
       new_url TEXT)`
     return this.dao.run(sql)
   }
 
-  create(original_url, new_url) {
+  create(id, userId, originalUrl, shortUrl) {
     return this.dao.run(
-      'INSERT INTO urls (original_url, new_url) VALUES (?, ?)',
-      [original_url, new_url])
+      'INSERT INTO urls (id, user_id, original_url, new_url) VALUES (?, ?, ?, ?)',
+      [id, userId, originalUrl, shortUrl])
   }
 
-  getAll() {
-    return this.dao.all(`SELECT * FROM urls`)
+  getAllByUserId(id) {
+    return this.dao.all(`SELECT * FROM urls where user_id = ?`, [id])
   }
 
   getById(id) {

@@ -20,6 +20,24 @@ class UserRepository {
       'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
       [username, email, password])
   }
+
+  getByUsername(name) {
+    return this.dao.get(
+      `SELECT * FROM users WHERE username = ?`,
+      [name])
+  }
+
+  getByEmail(email) {
+    return this.dao.get(
+      `SELECT * FROM users WHERE email = ?`,
+      [email])
+  }
+
+  getById(id) {
+    return this.dao.get(
+      `SELECT * FROM users WHERE id = ?`,
+      [id])
+  }
 }
 
 module.exports = UserRepository

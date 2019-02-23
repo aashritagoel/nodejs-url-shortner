@@ -1,0 +1,13 @@
+extends layout
+
+block Content
+  .Index-Panel.is-Responsive
+        p.text-center
+          | Hi User, 
+          br
+          | URL Shortner allows you to shorten a url that can easily be memorised and shared among your friends.
+          br
+          br
+          if !user
+            button.btn.btn-primary.space Register
+            button.btn.btn-primary Login

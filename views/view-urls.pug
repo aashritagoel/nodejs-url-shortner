@@ -1,0 +1,17 @@
+extends layout
+
+block Content
+  .Center-Panel.is-Table
+    table.table.table-striped
+      thead
+        tr
+          th Original Url
+          th Short Url
+      tbody
+      if enteries
+        each entry,i in enteries
+          tr
+            td.url
+              a.url-link(href= entry.original_url)= entry.original_url
+            td.url
+              a.url-link(href= entry.new_url)= entry.new_url

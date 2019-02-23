@@ -1,0 +1,15 @@
+extends layout
+
+block Content
+  .Center-Panel.is-Responsive
+    form(action="./register" method="POST")
+      p.error #{nameErr}
+      input.form-control(type='text' size='50' placeholder='Username' name ='name' required='')
+      p.error #{emailErr}
+      input.form-control(type='email' size='50' placeholder='Email' name='email' required='')
+      p.error #{passwordErr}
+      input.form-control(type='password' size='50' placeholder='Password' name='password' required='')
+      p.error #{password2Err}
+      input.form-control(type='password' size='50' placeholder='Confirm Password' name='password2' required='')
+      .text-center
+        button.btn.btn-primary(type='submit') Register
