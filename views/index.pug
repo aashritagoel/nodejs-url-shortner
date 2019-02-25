@@ -9,5 +9,13 @@ block Content
           br
           br
           if !user
-            button.btn.btn-primary.space Register
-            button.btn.btn-primary Login
+            a(href="http://localhost:3000/user/register")
+              button.btn.btn-primary.space  Register
+            a(href="http://localhost:3000/user/login") 
+              button.btn.btn-primary Login
+            p.text-center Or
+            div.text-center
+              a(href="http://localhost:3000/auth/google") 
+                button.btn.btn-danger(type='button')
+                  i.fa.fa-google-plus(style='padding: 5px;' aria-hidden='false')
+                  |  Signin via Google

@@ -12,4 +12,14 @@ block Content
       p.error #{password2Err}
       input.form-control(type='password' size='50' placeholder='Confirm Password' name='password2' required='')
       .text-center
-        button.btn.btn-primary(type='submit') Register
+        button.btn.btn-primary(type='submit') Register to continue 
+          i.fa.fa-arrow-right(style='padding: 5px;' aria-hidden='false')
+      div.text-center
+        p Already have an account? To login, 
+          a(href='/user/login') click here.
+        p.text-center Or
+        div.text-center
+          a(href="http://localhost:3000/auth/google") 
+            button.btn.btn-danger(type='button')
+              i.fa.fa-google-plus(style='padding: 5px;' aria-hidden='false')
+              |  Signin via Google

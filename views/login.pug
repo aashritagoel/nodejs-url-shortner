@@ -4,8 +4,18 @@ block Content
   .Center-Panel.is-Responsive
     form(action="./login" method="POST")
       p.error #{nameErr}
-      input.form-control(type='email' size='50' placeholder='Username' name ='email' required='')
+      input.form-control(type='email' size='50' placeholder='Email' name ='email' required='')
       p.error #{passwordErr}
       input.form-control(type='password' size='50' placeholder='Password' name='password' required='')
       .text-center
-        button.btn.btn-primary(type='submit') Login
+        button.btn.btn-primary(type='submit') Login to continue 
+          i.fa.fa-arrow-right(style='padding: 5px;' aria-hidden='false')
+      div.text-center
+        p Don't have an account? To register, 
+          a(href='/user/register') click here.
+        p.text-center Or
+        div.text-center
+          a(href="http://localhost:3000/auth/google") 
+            button.btn.btn-danger(type='button')
+              i.fa.fa-google-plus(style='padding: 5px;' aria-hidden='false')
+              |  Signin via Google

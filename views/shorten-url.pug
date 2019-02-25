@@ -1,10 +1,20 @@
 extends layout
 
 block Content
-  .Relative-Center.is-Responsive
+  .Center-Panel.is-Responsive
+    div(class="Message alert alert-info text-center") Shortened Url: 
+      br 
+      | #{url}
+    br
     form(action = "./shorten-url", method="POST")
-      .input-group
-        input.form-control(type='text' size='50' placeholder='Enter url' required='', name='url')
-        .input-group-btn
-          button.btn.btn-danger(type='submit') Shorten
-    p.text-center #{url}
+      input.form-control(type='text' size='50' placeholder='Enter url' required='', name='url')
+      .form-group
+        label localhost:3000/short/_______
+        input.form-control(type='text' size='20' placeholder='(Optional)Paste text to create custom url.' name='shorturl')
+      if errors
+        each error, i in errors
+          if(error.param == "shorturl") 
+            p.error #{error.msg}
+      br
+      .text-center
+          button.btn.btn-danger(type='submit') Shorten      
