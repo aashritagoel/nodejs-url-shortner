@@ -72,7 +72,7 @@ router.post('/shorten-url', userController.validateUrl(urlRepo), controller.ensu
       res.render('shorten-url', {
         user: req.user,
         errors: [],
-        url: req.protocol + '://' + req.hostname + ':' + serverConfig.server.port + '/short/' + newUrl
+        url: req.protocol + '://' + req.hostname + '/short/' + newUrl
       });
     })
   }
@@ -85,7 +85,7 @@ router.get('/view-urls', controller.ensureAuthenticated, function(req, res) {
       res.render('view-urls', {
         user: req.user,
         enteries: urlCodes,
-        url: serverConfig.server.host + serverConfig.server.api + 'short/'
+        url: req.protocol + '://' + req.hostname + '/short/'
       });
     });
 });
