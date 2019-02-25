@@ -60,21 +60,14 @@ app.use(passport.session());
 
 app.get('*', function(req, res, next) {
   res.locals.user = req.user || null;
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  });
   next();
 });
 
-app.post('*', function(req, res, next) {
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  });
-  next();
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    next();
 });
 
 // Route Files

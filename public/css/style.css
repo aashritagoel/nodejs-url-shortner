@@ -127,8 +127,8 @@ color: #818181;
 .Message {
   margin: auto;
   position: relative;
-  min-width: 300px;
-  max-width: 450px;
+  min-width: 280px;
+  max-width: 380px;
 }
 .alert-error {
   color: #a94442;

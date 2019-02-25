@@ -1,8 +1,8 @@
 module.exports = {
 
   'googleAuth' : {
-     'clientID'      : process.env.GOOGLE_KEY,
-     'clientSecret'  : process.env.GOOGLE_SECRET,
+     'clientID'      : process.env.GOOGLE_KEY || 'your-clientID',
+     'clientSecret'  : process.env.GOOGLE_SECRET || 'your-secret',
      'callbackURL'   : '/auth/google/callback'
  },
 
