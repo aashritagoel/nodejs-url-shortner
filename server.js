@@ -24,6 +24,7 @@ const urlRepo = new UrlRepository(dao);
 const userRepo = new UserRepository(dao);
 const userAccessRepo = new UserAccessRepository(dao);
 controller.initializeModels(userRepo, urlRepo, userAccessRepo);
+const port = process.env.port || serverConfig.server.port
 
 app.use(express.json());
 
@@ -85,6 +86,6 @@ app.use('/auth', auth);
 app.use('/user', user);
 app.use('', protected);
 
-app.listen(serverConfig.server.port, function() {
+app.listen(, function() {
   console.log("Server started on 3000.")
 });
