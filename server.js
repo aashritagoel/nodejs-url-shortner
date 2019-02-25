@@ -86,6 +86,6 @@ app.use('/auth', auth);
 app.use('/user', user);
 app.use('', protected);
 
-app.listen(, function() {
+app.listen(port, function() {
   console.log("Server started on 3000.")
 });
