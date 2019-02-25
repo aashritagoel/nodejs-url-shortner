@@ -1,15 +1,15 @@
 module.exports = {
 
   'googleAuth' : {
-     'clientID'      : 'paste-your-clientid',
-     'clientSecret'  : 'paste-your-clientSecret',
-     'callbackURL'   : 'http://localhost:3000/auth/google/callback'
+     'clientID'      : process.env.GOOGLE_KEY,
+     'clientSecret'  : process.env.GOOGLE_SECRET,
+     'callbackURL'   : '/auth/google/callback'
  },
 
  'facebookAuth' : {
      'clientID'      : 'paste-your-clientid', // your App ID
      'clientSecret'  : 'paste-your-clientSecret', // your App Secret
-     'callbackURL'   : 'http://localhost:3000/auth/facebook/callback'
+     'callbackURL'   : '/auth/facebook/callback'
  }
 
 };
