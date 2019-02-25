@@ -42,8 +42,13 @@ router.post('/register', userController.validateUser(userRepo), function(req, re
 
 router.get('/send', function(req, res) {
   var rand=Math.floor((Math.random() * 100) + 54);
-  link=req.protocol + '://' + req.hostname + ':' + serverConfig.server.port
-  + "/user/verify?id=" + rand + "&email=" + req.query.to;
+  if (process.env.NODE_ENV) {
+    var link = req.protocol + '://' + req.hostname
+      + "/user/verify?id=" + rand + "&email=" + req.query.to;
+  } else {
+    var link = req.protocol + '://' + req.hostname + ':' + serverConfig.server.port
+      + "/user/verify?id=" + rand + "&email=" + req.query.to;
+  }
   userRepo.addSecret(req.query.to, rand);
   mailOptions={
       to : req.query.to,
@@ -52,7 +57,6 @@ router.get('/send', function(req, res) {
       + link
       + ">Click here to verify</a>"
     }
-    console.log(mailOptions);
     controller.transporter.sendMail(mailOptions, function(error, response){
      if(error) {
         console.log(error);
