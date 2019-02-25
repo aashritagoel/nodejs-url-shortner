@@ -1,3 +1,6 @@
+const nodemailer = require('nodemailer');
+const credentials = require('../config/auth.js');
+
 exports.parseErrors = (errors) => {
   for (var error of errors) {
     if (error.param == "name")
@@ -31,4 +34,13 @@ exports.initializeModels = (userRepo, urlRepo, userAccessRepo) => {
     .then(() => userAccessRepo.createTable())
     .then(() => userRepo.createUserTable())
     .then(() => userRepo.createUserKeyTable())
+    .then(() => userRepo.createUserValidateTable())
 }
+
+exports.transporter = nodemailer.createTransport({
+  service: 'hotmail',
+  auth: {
+    user: credentials.emailCredentials.user,
+    pass: credentials.emailCredentials.pass
+  }
+});

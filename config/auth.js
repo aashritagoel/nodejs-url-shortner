@@ -6,9 +6,14 @@ module.exports = {
      'callbackURL'   : '/auth/google/callback'
  },
 
+ 'emailCredentials' : {
+      'user' : process.env.EMAIL_KEY || 'your-email',
+      'pass' : process.env.EMAIL_SECRET || 'your-password'
+ },
+
  'facebookAuth' : {
-     'clientID'      : 'paste-your-clientid', // your App ID
-     'clientSecret'  : 'paste-your-clientSecret', // your App Secret
+     'clientID'      : 'paste-your-clientid', 
+     'clientSecret'  : 'paste-your-clientSecret',
      'callbackURL'   : '/auth/facebook/callback'
  }
 

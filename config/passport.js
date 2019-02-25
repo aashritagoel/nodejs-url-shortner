@@ -28,11 +28,15 @@ module.exports = function(passport, userRepo) {
           bcrypt.compare(password, userKey.password, function(err, isMatch) {
             if (err) console.log(err);
             if (isMatch) {
-              return done(null, user);
+              if(user.isAuthenticated) {
+                return done(null, user);
+              } else {
+                return done(null, false, {
+                  message: "Please verify account to continue."
+                });
+              }
             } else {
-              return done(null, false, {
-                message: 'Wrong password'
-              });
+              return done(null, false, {message: 'Wrong password'});
             }
           });
         })

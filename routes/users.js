@@ -10,6 +10,7 @@ const AppDAO = require('../models/dao');
 const UrlRepository = require('../models/url');
 const UserRepository = require('../models/users');
 const UserAccessRepository = require('../models/user-access');
+const serverConfig = require('../config/server');
 
 const dao = new AppDAO(dbConfig.database.name)
 const urlRepo = new UrlRepository(dao)
@@ -31,11 +32,56 @@ router.post('/register', userController.validateUser(userRepo), function(req, re
         console.log(err);
       userRepo.create(name, email, hash)
         .then(user => {
-          req.flash('success','You are now registered and can log in');
-          res.redirect('/user/login')
+          req.flash('success','You are now registered.');
+          var sendMailRedirect = '/user/send?to=' + email;
+          res.redirect(sendMailRedirect)
         });
     });
   }
+});
+
+router.get('/send', function(req, res) {
+  var rand=Math.floor((Math.random() * 100) + 54);
+  link=req.protocol + '://' + req.hostname + ':' + serverConfig.server.port
+  + "/user/verify?id=" + rand + "&email=" + req.query.to;
+  userRepo.addSecret(req.query.to, rand);
+  mailOptions={
+      to : req.query.to,
+      subject : "Please confirm your Email account",
+      html : "Hello,<br> Please Click on the link to verify your email.<br><a href="
+      + link
+      + ">Click here to verify</a>"
+    }
+    console.log(mailOptions);
+    controller.transporter.sendMail(mailOptions, function(error, response){
+     if(error) {
+        console.log(error);
+        res.send("<h1>Internal message sending limit exceeded. Try logging using google</h1>");
+      }
+     else {
+        req.flash('success', 'An email has been sent for verification. Please verify.');
+        res.render('login');
+      }
+    });
+});
+
+router.get('/verify',function(req,res){
+  var email = req.query.email;
+  var hash = req.query.id;
+  userRepo.checkSecret(email, hash)
+  .then((id) => {
+    if(id) {
+      console.log(id);
+      userRepo.updateStatus(email)
+      .then(() => {
+        req.flash('success', 'Email is verified. Login to continue.');
+        res.redirect('/user/login');
+      })
+    }
+    else {
+      res.end("<h1>Bad Request</h1>");
+    }
+  });
 });
 
 router.get('/login', function(req, res) {

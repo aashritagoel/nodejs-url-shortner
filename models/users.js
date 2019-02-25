@@ -25,6 +25,15 @@ class UserRepository {
     return this.dao.run(sql)
   }
 
+  createUserValidateTable() {
+    const sql = `
+      CREATE TABLE IF NOT EXISTS user_validate (
+        email Text PRIMARY KEY,
+        secret_key INTEGER
+        )`
+    return this.dao.run(sql)
+  }
+
   createUser(username, email, provider) {
     return this.dao.run(
       'INSERT INTO users (username, email, user_provider) VALUES (?, ?, ?)',
@@ -40,6 +49,21 @@ class UserRepository {
         [user.id, password]);
       }
     });
+  }
+
+  addSecret(email, secret) {
+    return this.dao.run('INSERT INTO user_validate (email, secret_key) VALUES (?, ?)',
+      [email, secret]);
+  }
+
+  checkSecret(email, secret) {
+    return this.dao.get('SELECT * FROM user_validate WHERE email = ? and secret_key = ?',
+      [email, secret]);
+  }
+
+  updateStatus(email) {
+    return this.dao.run('UPDATE users SET isAuthenticated= 1 WHERE email = ?',
+      [email]);
   }
 
   getByUsername(name) {
