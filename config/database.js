@@ -1,5 +1,5 @@
 exports.database = {
-        name: './sqlite',
+        name: './sqlite.db',
         user: '',
         pass: ''
 };

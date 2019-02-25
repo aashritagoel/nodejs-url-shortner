@@ -45,7 +45,7 @@ module.exports = function(passport, userRepo) {
     callbackURL: configAuth.googleAuth.callbackURL,
   }, function(token, refreshToken, profile, done) {
     process.nextTick(function() {
-      userRepo.getById(profile.id)
+      userRepo.getByEmail(profile.emails[0].value)
         .then((user) => {
           if (user) {
             return done(null, user);

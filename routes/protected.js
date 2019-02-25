@@ -72,7 +72,7 @@ router.post('/shorten-url', userController.validateUrl(urlRepo), controller.ensu
       res.render('shorten-url', {
         user: req.user,
         errors: [],
-        url: serverConfig.server.host + 'short/' + newUrl
+        url: req.protocol + '://' + req.hostname + ':' + serverConfig.server.port + '/short/' + newUrl
       });
     })
   }
