@@ -85,7 +85,7 @@ router.get('/view-urls', controller.ensureAuthenticated, function(req, res) {
       res.render('view-urls', {
         user: req.user,
         enteries: urlCodes,
-        url: req.protocol + '://' + req.hostname + '/short/'
+        url: req.protocol + '://' + req.hostname ':' + serverConfig.server.port + '/short/'
       });
     });
 });
